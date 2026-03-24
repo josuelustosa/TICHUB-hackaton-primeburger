@@ -1,1 +1,10 @@
 /*  */
+@theme {
+  /* Color Palette */
+  --color-brown-primary: #3e2723;
+  --color-brown-secondary: #5d4037;
+  --color-beige: #d7ccc8;
+
+  /* Typography */
+  --font-inter: 'Inter', sans-serif;
+}

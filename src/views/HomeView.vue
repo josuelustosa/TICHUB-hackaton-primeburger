@@ -1,6 +1,10 @@
+<script setup lang="ts">
+import ProductCategory from '@/components/Home/ProductCategory.vue'
+</script>
+
 <template>
   <div>
-    <h1 class="text-3xl font-bold text-brown-primary">Eu sou a página inicial :)</h1>
+    <ProductCategory />
   </div>
 </template>
 

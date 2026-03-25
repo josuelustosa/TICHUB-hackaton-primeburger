@@ -1,28 +1,5 @@
 <script setup lang="ts">
-import type { Category } from '@/types/category.type'
-
-const categories: Category[] = [
-  {
-    id: 1,
-    name: 'Clássicos da Casa',
-    icon: 'pi-home',
-  },
-  {
-    id: 2,
-    name: 'Premium & Gourmet',
-    icon: 'pi-crown',
-  },
-  {
-    id: 3,
-    name: 'Bebidas',
-    icon: 'pi-sparkles',
-  },
-  {
-    id: 4,
-    name: 'Sobremesas',
-    icon: 'pi-heart',
-  },
-]
+import { CATEGORIES_PRODUCTS } from '@/mocks/categories-products.mock'
 </script>
 
 <template>
@@ -33,7 +10,7 @@ const categories: Category[] = [
 
     <div class="grid grid-cols-1 gap-4 md:gap-5 lg:gap-8 md:grid-cols-2 lg:grid-cols-4">
       <div
-        v-for="category in categories"
+        v-for="category in CATEGORIES_PRODUCTS"
         :key="category.id"
         class="bg-brown-primary shadow-sm p-5 rounded-2xl"
       >

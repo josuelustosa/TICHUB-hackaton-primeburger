@@ -6,7 +6,6 @@ import HeadingH2 from '../HeadingH2.vue'
 
 <template>
   <SectionLayout bg-color="bg-beige">
-    <h2 class="heading-h2">Categorias de Sabor</h2>
     <HeadingH2>Categorias de Sabor</HeadingH2>
 
     <div class="grid grid-cols-1 gap-4 md:gap-5 lg:gap-8 md:grid-cols-2 lg:grid-cols-4">

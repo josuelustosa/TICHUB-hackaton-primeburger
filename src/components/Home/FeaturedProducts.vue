@@ -3,6 +3,8 @@ import { Button, Card, InputNumber } from 'primevue'
 import { ref } from 'vue'
 
 import { FEATURED_PRODUCTS } from '@/mocks/featured-products.mock'
+import SectionLayout from '../SectionLayout.vue'
+import HeadingH2 from '../HeadingH2.vue'
 
 const featuredProducts = ref(FEATURED_PRODUCTS.map((product) => ({ ...product })))
 
@@ -27,10 +29,8 @@ const addToFavorite = (productId: number) => {
 </script>
 
 <template>
-  <div class="px-6 py-8 md:px-12 lg:px-20 bg-white">
-    <h2 class="py-4 text-brown-primary text-xl md:lg:text-2xl lg:text-3xl font-extrabold uppercase">
-      Top Burgers
-    </h2>
+  <SectionLayout>
+    <HeadingH2>Top Burgers</HeadingH2>
 
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
       <Card
@@ -55,14 +55,14 @@ const addToFavorite = (productId: number) => {
           <p class="text-sm sm:text-base text-brown-secondary">{{ product.category.name }}</p>
         </template>
         <!--
-          IMPLEMENTAR A LÓGICA DE DESCRIÇÃO SOMENTE QUANDO FOR APRESENTAR O PRODUTO EM MODAL
-          PARA ATENDER O REQUISITO DE MVP: PÁGINA DE DETALHES DO PRODUTOS
-        -->
+            IMPLEMENTAR A LÓGICA DE DESCRIÇÃO SOMENTE QUANDO FOR APRESENTAR O PRODUTO EM MODAL
+            PARA ATENDER O REQUISITO DE MVP: PÁGINA DE DETALHES DO PRODUTOS
+          -->
         <!-- <template #content>
-          <p class="m-0 text-sm sm:text-base leading-relaxed text-gray-700">
-            {{ product.description }}
-          </p>
-        </template> -->
+            <p class="m-0 text-sm sm:text-base leading-relaxed text-gray-700">
+              {{ product.description }}
+            </p>
+          </template> -->
         <template #footer>
           <div class="flex flex-col gap-3 sm:gap-4 mt-1">
             <div class="flex items-center justify-between gap-3">
@@ -112,7 +112,7 @@ const addToFavorite = (productId: number) => {
         </template>
       </Card>
     </div>
-  </div>
+  </SectionLayout>
 </template>
 
 <style></style>

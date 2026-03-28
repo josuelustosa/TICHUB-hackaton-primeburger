@@ -1,7 +1,14 @@
 <script setup lang="ts">
+import { useRouter } from 'vue-router'
 import { CATEGORIES_PRODUCTS } from '@/mocks/categories-products.mock'
 import SectionLayout from '../SectionLayout.vue'
 import HeadingH2 from '../HeadingH2.vue'
+
+const router = useRouter()
+
+const goToMenu = () => {
+  router.push('/cardapio')
+}
 </script>
 
 <template>
@@ -12,7 +19,8 @@ import HeadingH2 from '../HeadingH2.vue'
       <div
         v-for="category in CATEGORIES_PRODUCTS"
         :key="category.id"
-        class="bg-brown-primary shadow-sm p-5 rounded-2xl"
+        class="bg-brown-primary shadow-sm p-5 rounded-2xl category-card cursor-pointer"
+        @click="goToMenu"
       >
         <div class="flex items-center justify-between gap-4">
           <div class="text-beige font-semibold text-lg lg:text-xl! leading-tight!">
@@ -30,7 +38,23 @@ import HeadingH2 from '../HeadingH2.vue'
             />
           </div>
         </div>
+        <p class="text-beige text-xs mt-3 opacity-70">Ver todos →</p>
       </div>
     </div>
   </SectionLayout>
 </template>
+
+<style scoped>
+.category-card {
+  transition:
+    background-color 0.2s ease,
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.category-card:hover {
+  background-color: var(--color-brown-secondary);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px -4px rgba(62, 39, 35, 0.3);
+}
+</style>

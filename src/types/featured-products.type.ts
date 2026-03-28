@@ -8,4 +8,5 @@ export type FeaturedProducts = {
   img: string
   favorite: boolean
   category: Category
+  badge?: string
 }

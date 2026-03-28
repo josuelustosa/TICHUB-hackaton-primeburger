@@ -1,12 +1,14 @@
 <script setup lang="ts">
 import { Button, Menubar, Badge } from 'primevue'
+import { ref, computed } from 'vue'
+import { useCartStore } from '@/stores/cart.store'
 
-import { ref } from 'vue'
+const cart = useCartStore()
+const cartCount = computed(() => cart.totalItems)
 
 const items = ref([
   {
     label: 'Página Inicial',
-    // icon: 'pi pi-home',
     route: '/',
   },
   {
@@ -15,37 +17,12 @@ const items = ref([
   },
   {
     label: 'Minha Comanda',
-    route: '/minha-comanda'
+    route: '/minha-comanda',
   },
   {
     label: 'Pedidos',
-    route: '/pedidos'
+    route: '/pedidos',
   },
-  // {
-  //   label: 'Projects',
-  //   icon: 'pi pi-search',
-  //   badge: 3,
-  //   items: [
-  //     {
-  //       label: 'Core',
-  //       icon: 'pi pi-bolt',
-  //       shortcut: '⌘+S',
-  //     },
-  //     {
-  //       label: 'Blocks',
-  //       icon: 'pi pi-server',
-  //       shortcut: '⌘+B',
-  //     },
-  //     {
-  //       separator: true,
-  //     },
-  //     {
-  //       label: 'UI Kit',
-  //       icon: 'pi pi-pencil',
-  //       shortcut: '⌘+U',
-  //     },
-  //   ],
-  // },
   {
     separator: true,
     class: 'menu-auth-mobile-separator',
@@ -69,7 +46,11 @@ const items = ref([
   <Menubar :model="items" class="app-menubar">
     <template #start>
       <RouterLink to="/" class="flex items-center space-x-3 rtl:space-x-reverse">
-        <img src="../assets/images/prime-burger-logo.svg" class="h-10 md:h-12 lg:h-14" alt="PrimeBurger Logo" />
+        <img
+          src="../assets/images/prime-burger-logo.svg"
+          class="h-10 md:h-12 lg:h-14"
+          alt="PrimeBurger Logo"
+        />
         <span class="menubar-brand-title self-center text-xl font-semibold whitespace-nowrap"
           >PrimeBurger</span
         >
@@ -93,14 +74,19 @@ const items = ref([
       <RouterLink v-else-if="item.route" v-slot="{ href, navigate }" :to="item.route" custom>
         <a
           v-ripple
-          class="menubar-item-link flex items-center"
+          class="menubar-item-link flex items-center gap-2"
           :href="href"
           v-bind="props.action"
           @click="navigate"
         >
           <span>{{ item.label }}</span>
           <Badge
-            v-if="item.badge"
+            v-if="item.label === 'Minha Comanda' && cartCount > 0"
+            :value="cartCount"
+            :class="{ 'ml-auto': !root, 'ml-1': root }"
+          />
+          <Badge
+            v-else-if="item.badge"
             :class="{ 'ml-auto': !root, 'ml-2': root }"
             :value="item.badge"
           />
@@ -118,11 +104,6 @@ const items = ref([
       <a v-else v-ripple class="menubar-item-link flex items-center" v-bind="props.action">
         <span>{{ item.label }}</span>
         <Badge v-if="item.badge" :class="{ 'ml-auto': !root, 'ml-2': root }" :value="item.badge" />
-        <span
-          v-if="item.shortcut"
-          class="ml-auto border border-surface rounded bg-emphasis text-muted-color text-xs p-1"
-          >{{ item.shortcut }}</span
-        >
         <i
           v-if="hasSubmenu"
           :class="['pi ml-auto', { 'pi-angle-down': root, 'pi-angle-right': !root }]"
@@ -131,6 +112,14 @@ const items = ref([
     </template>
     <template #end>
       <div class="menubar-desktop-actions">
+        <!-- <RouterLink to="/minha-comanda" class="cart-icon-link">
+          <Button icon="pi pi-shopping-cart" text class="cart-btn" aria-label="Carrinho">
+            <template #icon>
+              <i class="pi pi-shopping-cart" />
+            </template>
+          </Button>
+          <Badge v-if="cartCount > 0" :value="cartCount" class="cart-badge" />
+        </RouterLink> -->
         <Button label="Entrar" variant="outlined" class="menubar-end-button menubar-login-button" />
         <Button label="Criar Conta" class="menubar-end-button menubar-signup-button" />
       </div>
@@ -218,6 +207,25 @@ const items = ref([
   display: flex;
   align-items: center;
   gap: 0.5rem;
+}
+
+.cart-icon-link {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+}
+
+.cart-btn {
+  color: var(--color-beige) !important;
+}
+
+.cart-badge {
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  min-width: 1.1rem;
+  height: 1.1rem;
+  font-size: 0.65rem;
 }
 
 @media (max-width: 960px) {
